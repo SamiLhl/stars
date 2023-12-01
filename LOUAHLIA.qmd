@@ -2,5 +2,35 @@
 title: "LOUAHLIA"
 author: "Sami Louahlia"
 format: html
+
+code-fold: true
 ---
+
+```{r}
+here::i_am("stars.Rproj")
+library(here)
+library(vroom)
+library(ggplot2)
+library(tidyr)
+library(dplyr)
+```
+
+[Access to the github repository](https://github.com/SamiLhl/stars)
+
+```{r}
+Main_Data <- vroom(here("Data folder/DATA-PLANETS.csv"))
+
+```
+We load the Main data file, it contains `r nrow(Main_Data)` planets and `r ncol(Main_Data)` variables including vars for planet number and their names. As of now, numerical variables are not all seen as numerical. Need to change that
+
+```{r}
+Main_Data$`MASS (EARTH)`<-as.numeric(Main_Data$`MASS (EARTH)`)
+Main_Data$Density <- as.numeric(Main_Data$Density)
+
+is.numeric(Main_Data$`MASS (EARTH)`)
+is.numeric(Main_Data$Density)
+```
+Now they should be in numerical format. 
+
+
 
