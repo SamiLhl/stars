@@ -17,13 +17,13 @@ library(dplyr)
 
 [Access to the github repository](https://github.com/SamiLhl/stars)
 
-```{r}
+```{r Q3-1}
 Main_Data <- vroom(here("Data folder/DATA-PLANETS.csv"))
 
 ```
 We load the Main data file, it contains `r nrow(Main_Data)` planets and `r ncol(Main_Data)` variables including vars for planet number and their names. As of now, numerical variables are not all seen as numerical. Need to change that
 
-```{r}
+```{r Q3-2}
 Main_Data$`MASS (EARTH)`<-as.numeric(Main_Data$`MASS (EARTH)`)
 Main_Data$Density <- as.numeric(Main_Data$Density)
 
@@ -32,7 +32,7 @@ is.numeric(Main_Data$Density)
 ```
 Now they should be in numerical format. 
 
-```{r}
+```{r Q4}
 Row <- nrow(Main_Data)
 Col <- ncol(Main_Data)
 NA_key <- Main_Data |> count(is.na(STAR_KEY)==TRUE)
@@ -50,3 +50,13 @@ Q4 <- knitr:: kable(TableVariable)
 
 
 This table summarizes how many NA's there are in each variable `r Q4`
+
+```{r Q5}
+Main_Data_plot <- na.omit(Main_Data)
+ggplot(Main_Data_plot, aes(x=`MASS (EARTH)`, y=`relative radius`)) +
+  geom_point()+
+  ggtitle("Mass of planets as a function of their radius")+
+  xlab("Mass of planet in earth mass")+
+  ylab("Relative radius")
+```
+
