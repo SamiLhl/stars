@@ -32,5 +32,21 @@ is.numeric(Main_Data$Density)
 ```
 Now they should be in numerical format. 
 
+```{r}
+Row <- nrow(Main_Data)
+Col <- ncol(Main_Data)
+NA_key <- Main_Data |> count(is.na(STAR_KEY)==TRUE)
+NA_number <- Main_Data |> count(is.na(PLANET_NUMBER)== TRUE)
+NA_name <- Main_Data |> count(is.na(planet_name)== TRUE)
+NA_mass <- Main_Data |> count(is.na(`MASS (EARTH)`)== TRUE)
+NA_density <- Main_Data |> count(is.na(Density)== TRUE)
+NA_rad <- Main_Data |> count(is.na(`relative radius`)== TRUE) 
+NA_ter <- Main_Data |> count(is.na(`type of terrain`)== TRUE)
+NA_clim <- Main_Data |> count(is.na(`type of climate`)== TRUE)
+
+TableVariable <- Main_Data |> summarise(Row, Col, NA_key, NA_number, NA_name, NA_mass, NA_density, NA_rad, NA_ter, NA_clim )
+Q4 <- knitr:: kable(TableVariable)
+```
 
 
+This table summarizes how many NA's there are in each variable `r Q4`
