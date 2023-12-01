@@ -59,4 +59,17 @@ ggplot(Main_Data_plot, aes(x=`MASS (EARTH)`, y=`relative radius`)) +
   xlab("Mass of planet in earth mass")+
   ylab("Relative radius")
 ```
+```{r Q6}
 
+#"-Dense"<- which.min(na.omit(Main_Data$Density))
+#"name-dense" <- na.omit(Main_Data$planet_name["-Dense"])
+
+#"+Dense"<- which.max(na.omit(Main_Data$Density))
+#"name+dense" <- na.omit(Main_Data$planet_name["+Dense"])
+
+
+Table_Extreme <- Main_Data |> summarize(min(Density, na.rm=TRUE), max(Density, na.rm=TRUE), min(`MASS (EARTH)`, na.rm=TRUE), max(`MASS (EARTH)`, na.rm=TRUE), min(`relative radius`, na.rm=TRUE), max(`relative radius`, na.rm=TRUE))
+
+Q6 <- knitr:: kable(Table_Extreme)
+```
+Here is a table of the smallest value taken by planets `r Q6` I have not managed to get the names yet
