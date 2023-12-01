@@ -110,8 +110,12 @@ DensityClimate <- na.omit(DensityClimate)
 ggplot(DensityClimate, aes(x=Density ))+
   geom_density()+
   facet_wrap(~climate)
-  
 ```
+
+```{r}
+All_Stars <- vroom(here("Data folder/All+STARS.CSV"))
+```
+
 
 
 
