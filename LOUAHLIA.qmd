@@ -76,14 +76,43 @@ Q6 <- knitr:: kable(Table_Extreme)
 Here is a table of the smallest value taken by planets `r Q6` I have not managed to get the names yet
 
 ```{r Q7}
-planet_terrain <- Main_Data |> select(PLANET_NUMBER, `type of terrain`, `type of climate`) |> reframe(PLANET_NUMBER,
-  str_split(Main_Data$`type of terrain`,"," ))
-planet_climate <- Main_Data |> select(PLANET_NUMBER, `type of terrain`, `type of climate`) |> reframe(PLANET_NUMBER,
-  str_split(Main_Data$`type of climate`, ","))
+
+terrain <- Main_Data |> select(PLANET_NUMBER, `type of terrain`)
+terrain<- terrain |> rowwise() |> reframe(PLANET_NUMBER,terrain=unlist(str_split(`type of terrain`,", ")))
+  
+
+
+climate <- Main_Data |> select(PLANET_NUMBER, `type of climate`)
+climate<- climate |>rowwise()  |>reframe(PLANET_NUMBER,climate=unlist(str_split(`type of climate`,", ")))
   
 
 ```
-```{r}
-planet_info <-
+
+
+```{r Q8}
+ggplot(climate, aes(x = PLANET_NUMBER)) +
+  geom_bar() +
+  xlab ("Planet number") +
+  ylab ("Number of climate")
 ```
+
+
+```{r}
+ggplot(climate, aes(x = PLANET_NUMBER)) +
+  geom_bar() +
+  xlab ("Planet number") +
+  ylab ("Number of terrrain")
+```
+
+```{r Q9}
+DensityClimate <- climate |> left_join(Main_Data, by = "PLANET_NUMBER")
+DensityClimate <- na.omit(DensityClimate)
+ggplot(DensityClimate, aes(x=Density ))+
+  geom_density()+
+  facet_wrap(~climate)
+  
+```
+
+
+
 
