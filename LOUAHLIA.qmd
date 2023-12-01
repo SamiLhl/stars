@@ -115,8 +115,18 @@ ggplot(DensityClimate, aes(x=Density ))+
 ```{r}
 All_Stars <- vroom(here("Data folder/All+STARS.CSV"))
 ```
+```{r}
+Merged <- Main_Data |> left_join(All_Stars)
+
+```
 
 
+```{r 13}
+Allstars_plot <- na.omit(All_Stars)
+ggplot(Allstars_plot, aes(x=`Star Temperature`)) + 
+  geom_histogram()
+
+```
 
 
 
